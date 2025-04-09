@@ -1,8 +1,7 @@
 package com.example.TodoApiSpring;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+// Annotations
 @SpringBootApplication
 public class TodoApiSpringApplication {
 
