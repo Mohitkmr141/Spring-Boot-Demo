@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/Todos")
 public  class TodoController {
 
 
@@ -23,13 +24,13 @@ public  class TodoController {
 
     }
 
-    @GetMapping("/Todos")
+    @GetMapping
 
     public ResponseEntity <List<Todo>> getTodos() {
         return ResponseEntity.ok(todos);
     }
 
-    @PostMapping("/Todos")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Todo> createTodo(@RequestBody Todo newTodo) {
 
@@ -45,6 +46,18 @@ public  class TodoController {
         return newTodos;
 
 
+    }
+
+    @GetMapping("/{todoId}")
+    public ResponseEntity  <Todo> getTodoById(@PathVariable Long Todoid){
+
+        for(Todo todo :todos){
+            if(todo.getId() == Todoid){
+                System.out.println(todo.getId());
+                return ResponseEntity.ok(todo);
+            }
+        }
+    return ResponseEntity.notFound().build();
     }
 }
 
