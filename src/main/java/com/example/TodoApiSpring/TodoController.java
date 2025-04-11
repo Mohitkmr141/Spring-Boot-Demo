@@ -1,6 +1,5 @@
 package com.example.TodoApiSpring;
 
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/Todos")
+@ResponseBody
 public  class TodoController {
 
 
@@ -49,16 +49,59 @@ public  class TodoController {
     }
 
     @GetMapping("/{todoId}")
-    public ResponseEntity  <Todo> getTodoById(@PathVariable Long Todoid){
+    public ResponseEntity  <Todo> getTodoById(@PathVariable Long TodoId){
 
         for(Todo todo :todos){
-            if(todo.getId() == Todoid){
+            if(todo.getId() == TodoId){
                 System.out.println(todo.getId());
                 return ResponseEntity.ok(todo);
             }
         }
     return ResponseEntity.notFound().build();
     }
+
+
+    @DeleteMapping("/{todoId}")
+
+    public ResponseEntity <Todo> deleteTodoById(@PathVariable Long TodoId){
+
+        for(Todo todo :todos){
+            if(todo.getId() == TodoId){
+                todos.remove(todo);
+
+                return ResponseEntity.ok(todo);
+
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{TodoId}")
+    public ResponseEntity <Todo> updateOldTodo(@PathVariable Long TodoId){
+
+        for(Todo todo : todos){
+            if(todo.getId() == TodoId){
+                return ResponseEntity.ok(todo);
+            }
+        }
+        return ResponseEntity.notFound().build(); // if not found
+    }
+
+
+@PatchMapping("/{TodoId}")
+    public ResponseEntity<Todo> updateOneFieldTod(@PathVariable Long TodoId){
+
+        for(Todo todo : todos){
+            if(todo.getId() == TodoId){
+                return ResponseEntity.ok(todo);
+            }
+
+        }
+        return ResponseEntity.notFound().build();
+}
+
+
+
 }
 
 
